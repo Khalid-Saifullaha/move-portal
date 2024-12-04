@@ -9,6 +9,7 @@ import AddMovie from "../pages/AddMovie";
 import MyFavorites from "../pages/MyFavorites";
 import Login from "../pages/Login";
 import Error from "../pages/Error";
+import MoveDetails from "../pages/MoveDetails";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,12 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
+      },
+      {
+        path: "/details/:id",
+        element: <MoveDetails></MoveDetails>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:4000/move/${params.id}`),
       },
     ],
   },

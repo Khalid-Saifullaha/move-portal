@@ -1,57 +1,111 @@
-import React from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
+import { Rating } from "react-simple-star-rating";
 
 const AddMovie = () => {
-  const handleAddMove = (e) => {
+  const [rating, setRating] = useState(0);
+
+  const handleRating = (rate) => {
+    setRating(rate);
+  };
+
+  const handleAddMovie = (e) => {
     e.preventDefault();
 
     const photo = e.target.photo.value;
     const name = e.target.name.value;
     const genre = e.target.genre.value;
-    const duration = e.target.duration.value;
+    const duration = parseInt(e.target.duration.value, 10);
     const release = e.target.release.value;
-    const rating = e.target.rating.value;
     const summary = e.target.summary.value;
+    const userEmail = "user@example.com"; // Replace with dynamically fetched email
 
-    const newMove = { photo, name, genre, duration, release, rating, summary };
-    console.log(newMove);
+    // Validations
+    if (!/^https?:\/\/.+\..+/.test(photo)) {
+      Swal.fire("Error", "Photo URL must be a valid link", "error");
+      return;
+    }
+    if (name.trim().length < 2) {
+      Swal.fire(
+        "Error",
+        "Movie title must have at least 2 characters",
+        "error"
+      );
+      return;
+    }
+    if (!genre) {
+      Swal.fire("Error", "Please select a genre", "error");
+      return;
+    }
+    if (isNaN(duration) || duration <= 60) {
+      Swal.fire("Error", "Duration must be greater than 60 minutes", "error");
+      return;
+    }
+    if (!release) {
+      Swal.fire("Error", "Please select a release year", "error");
+      return;
+    }
+    if (rating === 0) {
+      Swal.fire("Error", "Please select a rating", "error");
+      return;
+    }
+    if (summary.trim().length < 10) {
+      Swal.fire(
+        "Error",
+        "Summary must be at least 10 characters long",
+        "error"
+      );
+      return;
+    }
 
-    // send data to the server and database
+    const newMovie = {
+      photo,
+      name,
+      genre,
+      duration,
+      release,
+      rating,
+      summary,
+      email: userEmail,
+    };
+
+    console.log(newMovie);
+
+    // Send data to the server and database
     fetch("http://localhost:4000/move", {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(newMove),
+      body: JSON.stringify(newMovie),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
-          console.log("successfully added");
           Swal.fire({
             title: "Success!",
-            text: "Move added successfully",
+            text: "Movie added successfully",
             icon: "success",
             confirmButtonText: "Ok",
           });
-          //   e.target.reset();
+          e.target.reset();
+          setRating(0); // Reset rating
         }
       });
   };
+
   return (
     <div className="lg:w-3/4 mx-auto">
       <div className="text-center p-10">
-        <h1 className="text-5xl font-bold">Add Move!</h1>
+        <h1 className="text-5xl font-bold">Add Movie!</h1>
         <p className="py-6">
-          Provident cupiditate voluptatem et in.Quaerat fugiat ut assumenda
-          excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a
-          id nisi.
+          Provide details of your favorite movies to add them to the collection.
         </p>
       </div>
       <div className="card bg-base-100 w-full shrink-0 shadow-2xl">
-        <form onSubmit={handleAddMove} className="card-body">
-          {/* form first row */}
-          <div className="flex flex-col  gap-5">
+        <form onSubmit={handleAddMovie} className="card-body">
+          {/* Form first row */}
+          <div className="flex flex-col gap-5">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Movie Poster URL</span>
@@ -59,14 +113,14 @@ const AddMovie = () => {
               <input
                 type="text"
                 name="photo"
-                placeholder="Photo url"
+                placeholder="Photo URL"
                 className="input input-bordered"
                 required
               />
             </div>
             <div className="form-control flex-1">
               <label className="label">
-                <span className="label-text">Movie Title </span>
+                <span className="label-text">Movie Title</span>
               </label>
               <input
                 type="text"
@@ -80,72 +134,76 @@ const AddMovie = () => {
               <label className="label">
                 <span className="label-text">Genre</span>
               </label>
-              <input
-                type="text"
-                name="genre"
-                placeholder="Genre name"
-                className="input input-bordered"
-                required
-              />
+              <select name="genre" className="select select-bordered" required>
+                <option value="">Select Genre</option>
+                <option value="comedy">Comedy</option>
+                <option value="drama">Drama</option>
+                <option value="horror">Horror</option>
+                <option value="action">Action</option>
+                <option value="romance">Romance</option>
+              </select>
             </div>
           </div>
-          {/* form second row */}
+          {/* Form second row */}
           <div className="flex flex-col lg:flex-row gap-5">
             <div className="form-control flex-1">
               <label className="label">
-                <span className="label-text">Duration</span>
+                <span className="label-text">Duration (minutes)</span>
               </label>
               <input
-                type="text"
+                type="number"
                 name="duration"
                 placeholder="Duration"
                 className="input input-bordered"
+                min="61"
                 required
               />
             </div>
             <div className="form-control flex-1">
               <label className="label">
-                <span className="label-text">Release Year </span>
+                <span className="label-text">Release Year</span>
               </label>
-              <input
-                type="text"
+              <select
                 name="release"
-                placeholder="Release Year"
-                className="input input-bordered"
+                className="select select-bordered"
                 required
-              />
+              >
+                <option value="">Select Year</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+              </select>
             </div>
           </div>
-          {/* form third row */}
+          {/* Form third row */}
           <div className="flex flex-col lg:flex-row gap-5">
             <div className="form-control flex-1">
               <label className="label">
                 <span className="label-text">Rating</span>
               </label>
-              <input
-                type="text"
-                name="rating"
-                placeholder="Rating"
-                className="input input-bordered"
-                required
+              <Rating
+                onClick={handleRating}
+                ratingValue={rating}
+                size={30}
+                allowHalfIcon
               />
             </div>
             <div className="form-control flex-1">
               <label className="label">
                 <span className="label-text">Summary</span>
               </label>
-              <input
-                type="text"
+              <textarea
                 name="summary"
                 placeholder="Summary"
-                className="input input-bordered"
+                className="textarea textarea-bordered"
                 required
-              />
+              ></textarea>
             </div>
           </div>
 
           <div className="form-control mt-6">
-            <button className="btn btn-primary">Add Coffee</button>
+            <button className="btn btn-primary">Add Movie</button>
           </div>
         </form>
       </div>

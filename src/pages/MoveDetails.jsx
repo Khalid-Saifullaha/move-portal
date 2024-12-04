@@ -1,11 +1,17 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 
-const MoveCard = ({ move }) => {
+const MoveDetails = () => {
+  const move = useLoaderData();
   const { _id, photo, name, genre, duration, release, rating, summary } = move;
+
+  const handleDelete = (_id) => {
+    console.log(_id);
+  };
+
   return (
     <div className="">
-      <div className="card bg-base-100 w-96 shadow-xl ">
+      <div className="card bg-base-100 w-9/12 shadow-xl ">
         <figure>
           <img src={photo} alt="Shoes" />
         </figure>
@@ -20,8 +26,16 @@ const MoveCard = ({ move }) => {
           </div>
           <div>
             <NavLink to={`/details/${_id}`}>
+              <button
+                onClick={() => handleDelete(_id)}
+                className="btn mb-3 md:mr-5 btn-primary text-white font-bold"
+              >
+                Delete Movie
+              </button>
+            </NavLink>
+            <NavLink to={`/details/${_id}`}>
               <button className="btn btn-primary text-white font-bold">
-                See Details
+                Add to Favorite
               </button>
             </NavLink>
           </div>
@@ -31,4 +45,4 @@ const MoveCard = ({ move }) => {
   );
 };
 
-export default MoveCard;
+export default MoveDetails;
