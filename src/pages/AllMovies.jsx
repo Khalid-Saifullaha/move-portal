@@ -1,14 +1,13 @@
-import React from "react";
 import { useLoaderData } from "react-router-dom";
 import MoveCard from "../components/MoveCard";
 
 const AllMovies = () => {
-  const moves = useLoaderData();
+  const loaderMoves = useLoaderData();
+
   return (
     <div>
-      <h2>Block buster Movies: {moves.length}</h2>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {moves.map((move) => (
+        {loaderMoves.map((move) => (
           <MoveCard key={move._id} move={move}></MoveCard>
         ))}
       </div>

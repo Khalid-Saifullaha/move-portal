@@ -10,6 +10,7 @@ import MyFavorites from "../pages/MyFavorites";
 import Login from "../pages/Login";
 import Error from "../pages/Error";
 import MoveDetails from "../pages/MoveDetails";
+import UpdateMovee from "../pages/UpdateMovee";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,12 @@ const router = createBrowserRouter([
       {
         path: "/details/:id",
         element: <MoveDetails></MoveDetails>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:4000/move/${params.id}`),
+      },
+      {
+        path: "/update/:id",
+        element: <UpdateMovee></UpdateMovee>,
         loader: ({ params }) =>
           fetch(`http://localhost:4000/move/${params.id}`),
       },
