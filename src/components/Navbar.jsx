@@ -1,7 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const Navbar = () => {
-  // const { user, logOut } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
+
   const navbarLinks = (
     <>
       <li>
@@ -16,16 +19,12 @@ const Navbar = () => {
       <li>
         <NavLink to={`/favorites`}>My Favorites</NavLink>
       </li>
-
-      <li>
-        <NavLink to={`/login`}>Login</NavLink>
-      </li>
     </>
   );
 
   return (
     <div>
-      <div className="navbar bg-blue-600 flex text-white  justify-between items-center  ">
+      <div className="navbar bg-black flex text-white  justify-between items-center  ">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -57,6 +56,23 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1 text-base gap-2">
             {navbarLinks}
           </ul>
+        </div>
+        <div>
+          {user && user?.email ? (
+            <button
+              onClick={logOut}
+              className="btn mr-4 btn-white hover:bg-slate-900 bg-black text-white  "
+            >
+              Log Out
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="btn mr-4 btn-white hover:bg-slate-900 bg-slate-800 text-white "
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </div>

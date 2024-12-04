@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const Register = () => {
+  const { createNewUser, setUser } = useContext(AuthContext);
+
   const navigate = useNavigate();
   const [error, setError] = useState({});
   const handleSubmit = (e) => {
@@ -38,25 +41,36 @@ const Register = () => {
       });
       return;
     }
-    // console.log(name, email, password, photo);
+    console.log({ name, email, password, photo });
 
     createNewUser(email, password)
       .then((result) => {
         const user = result.user;
         setUser(user);
-        updateUserProfile({ displayName: name, photoURL: photo })
-          .then(() => {
-            navigate("/");
-          })
-          .catch((err) => {
-            // console.log(err);
-          });
+        console.log(user);
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.errorMessage;
-        // console.log(errorCode, errorMessage);
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
       });
+
+    //   .then((result) => {
+    //     const user = result.user;
+    //     setUser(user);
+    //     updateUserProfile({ displayName: name, photoURL: photo })
+    //       .then(() => {
+    //         navigate("/");
+    //       })
+    //       .catch((err) => {
+    //         // console.log(err);
+    //       });
+    //   })
+    //   .catch((error) => {
+    //     const errorCode = error.code;
+    //     const errorMessage = error.errorMessage;
+    //     // console.log(errorCode, errorMessage);
+    //   });
   };
 
   return (

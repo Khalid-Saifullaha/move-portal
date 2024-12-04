@@ -1,20 +1,23 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { FaEye, FaRegEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const Login = () => {
+  const { userLogin, setUser } = useContext(AuthContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+    console.log({ email, password });
 
     userLogin(email, password)
       .then((result) => {
         const user = result.user;
         setUser(user);
-        navigate(location?.state?.from || "/");
+        // navigate(location?.state?.from || "/");
       })
       .catch((err) => {
         setError({ ...error, login: err.code });
