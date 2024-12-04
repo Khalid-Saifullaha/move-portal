@@ -12,6 +12,7 @@ import Error from "../pages/Error";
 import MoveDetails from "../pages/MoveDetails";
 import UpdateMovee from "../pages/UpdateMovee";
 import Register from "../pages/Register";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -24,17 +25,29 @@ const router = createBrowserRouter([
       },
       {
         path: "/allMovies",
-        element: <AllMovies></AllMovies>,
+        element: (
+          <PrivateRoute>
+            <AllMovies></AllMovies>
+          </PrivateRoute>
+        ),
         loader: () => fetch("http://localhost:4000/move"),
       },
       {
         path: "/addMovie",
-        element: <AddMovie></AddMovie>,
+        element: (
+          <PrivateRoute>
+            <AddMovie></AddMovie>
+          </PrivateRoute>
+        ),
       },
 
       {
         path: "/favorites",
-        element: <MyFavorites></MyFavorites>,
+        element: (
+          <PrivateRoute>
+            <MyFavorites></MyFavorites>
+          </PrivateRoute>
+        ),
       },
 
       {
