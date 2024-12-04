@@ -11,6 +11,7 @@ import Login from "../pages/Login";
 import Error from "../pages/Error";
 import MoveDetails from "../pages/MoveDetails";
 import UpdateMovee from "../pages/UpdateMovee";
+import Register from "../pages/Register";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
       },
       {
         path: "/details/:id",
