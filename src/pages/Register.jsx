@@ -2,8 +2,24 @@ import React, { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import app from "../firebase/firebase.init";
 
 const Register = () => {
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  const handleGoogleLogin = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log(result);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("ERROR", error);
+      });
+  };
+
   const { createNewUser, setUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -54,23 +70,6 @@ const Register = () => {
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
       });
-
-    //   .then((result) => {
-    //     const user = result.user;
-    //     setUser(user);
-    //     updateUserProfile({ displayName: name, photoURL: photo })
-    //       .then(() => {
-    //         navigate("/");
-    //       })
-    //       .catch((err) => {
-    //         // console.log(err);
-    //       });
-    //   })
-    //   .catch((error) => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.errorMessage;
-    //     // console.log(errorCode, errorMessage);
-    //   });
   };
 
   return (
@@ -158,7 +157,10 @@ const Register = () => {
             Login
           </Link>
         </p>
-        <button className="btn btn-primary text-white rounded-3xl mt-5 flex items-center justify-center">
+        <button
+          onClick={handleGoogleLogin}
+          className="btn btn-primary text-white rounded-3xl mt-5 flex items-center justify-center"
+        >
           <FcGoogle className="text-2xl mr-2" /> Register with Google
         </button>
       </div>
