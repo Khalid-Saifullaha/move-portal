@@ -8,7 +8,7 @@ const MoveDetails = () => {
   const [moves, setMoves] = useState(move);
 
   const handleAddToFavorites = (movie) => {
-    fetch("http://localhost:4000/move", {
+    fetch("http://localhost:4000/favorites", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -76,7 +76,7 @@ const MoveDetails = () => {
             <div className="">Duration: {duration} m</div>
             <div className="">Rating: {rating}</div>
           </div>
-          <div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 items-center ">
             <NavLink to={`/allMovies`}>
               <button
                 onClick={() => handleDelete(_id)}
@@ -96,6 +96,11 @@ const MoveDetails = () => {
             <NavLink to={`/update/${_id}`}>
               <button className="btn btn-primary text-white font-bold">
                 Updated Move
+              </button>
+            </NavLink>
+            <NavLink to={`/allMovies`}>
+              <button className="btn btn-primary text-white font-bold">
+                See all movies
               </button>
             </NavLink>
           </div>
