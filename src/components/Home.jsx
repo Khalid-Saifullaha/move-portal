@@ -8,8 +8,10 @@ import WebSeries from "../pages/WebSeries";
 const Home = () => {
   const data = useLoaderData();
 
-  // First 6 movies for the home page
-  const [moveData] = useState(data.slice(0, 6));
+  // Sort movies by rating in descending order and take the first 6
+  const [moveData] = useState(
+    [...data].sort((a, b) => b.rating - a.rating).slice(0, 6)
+  );
 
   return (
     <div>

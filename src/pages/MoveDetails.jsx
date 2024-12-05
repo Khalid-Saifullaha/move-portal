@@ -7,6 +7,26 @@ const MoveDetails = () => {
   const { _id, photo, name, genre, duration, release, rating, summary } = move;
   const [moves, setMoves] = useState(move);
 
+  const handleAddToFavorites = (movie) => {
+    fetch("http://localhost:4000/move", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(movie),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Added!",
+            text: "Movie added to your favorites.",
+            icon: "success",
+          });
+        }
+      });
+  };
+
   const handleDelete = (_id) => {
     console.log(_id);
     Swal.fire({
@@ -65,11 +85,14 @@ const MoveDetails = () => {
                 Delete Movie
               </button>
             </NavLink>
-            <NavLink to={`/details/${_id}`}>
-              <button className="btn btn-primary text-white font-bold my-3 md:mx-3">
-                Add to Favorite
-              </button>
-            </NavLink>
+
+            <button
+              onClick={() => handleAddToFavorites(move)}
+              className="btn btn-primary text-white font-bold my-3 md:mx-3"
+            >
+              Add to Favorite
+            </button>
+
             <NavLink to={`/update/${_id}`}>
               <button className="btn btn-primary text-white font-bold">
                 Updated Move
