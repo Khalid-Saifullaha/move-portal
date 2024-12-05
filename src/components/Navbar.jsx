@@ -19,6 +19,9 @@ const Navbar = () => {
       <li>
         <NavLink to={`/favorites`}>My Favorites</NavLink>
       </li>
+      <li>
+        <NavLink to={`/comingSoon`}>Coming Soon</NavLink>
+      </li>
 
       {user && (
         <>

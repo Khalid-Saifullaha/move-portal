@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Banner from "./Banner";
 import MoveCard from "./MoveCard";
 import { useLoaderData, NavLink } from "react-router-dom";
+import ComingSoon from "../pages/ComingSoon";
 
 const Home = () => {
   const data = useLoaderData();
@@ -9,32 +10,15 @@ const Home = () => {
   // First 6 movies for the home page
   const [moveData] = useState(data.slice(0, 6));
 
-  // Dark mode state
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  const handleThemeToggle = () => {
-    setIsDarkMode((prev) => !prev);
-    document.documentElement.classList.toggle("dark", !isDarkMode);
-  };
-
   return (
-    <div className={isDarkMode ? "dark" : ""}>
+    <div>
       {/* Banner Section */}
       <div>
         <Banner />
       </div>
 
-      {/* Header Section */}
-      <div className="bg-gray-100 dark:bg-gray-900 dark:text-white">
-        <header className="p-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Featured Movies</h1>
-          <button
-            onClick={handleThemeToggle}
-            className="btn bg-gray-300 text-black hover:bg-gray-400 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-600 px-4 py-2 rounded-md"
-          >
-            {isDarkMode ? "Light Mode" : "Dark Mode"}
-          </button>
-        </header>
+      <div className="bg-gray-100 dark:bg-gray-900 py-5 text-gray-100 mb-5">
+        <h1 className="text-2xl font-bold">Featured Movies</h1>
       </div>
 
       {/* Movie Cards Section */}
@@ -52,6 +36,7 @@ const Home = () => {
           </button>
         </NavLink>
       </div>
+      <ComingSoon></ComingSoon>
     </div>
   );
 };

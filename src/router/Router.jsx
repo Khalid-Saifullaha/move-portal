@@ -16,6 +16,7 @@ import PrivateRoute from "./PrivateRoute";
 
 import MyProfile from "../pages/MyProfile";
 import UserProfile from "../pages/UserProfile";
+import ComingSoon from "../pages/ComingSoon";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
             <MyFavorites></MyFavorites>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/comingSoon",
+        element: <ComingSoon></ComingSoon>,
       },
       {
         path: "/user",
