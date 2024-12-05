@@ -25,7 +25,7 @@ const MoveDetails = () => {
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
-            if (data.modifiedCount > 0) {
+            if (data.deletedCount > 0) {
               Swal.fire({
                 title: "Deleted!",
                 text: "Your move has been deleted.",
