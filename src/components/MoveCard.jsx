@@ -9,15 +9,14 @@ const MoveCard = ({ move }) => {
         <figure>
           <img src={photo} alt="Shoes" />
         </figure>
-        <div className="card-body">
-          <h2 className="card-title">{name}</h2>
-          <p>{summary}</p>
-          <div className="card-actions justify-end">
-            <div className="badge badge-outline">{genre}</div>
-            <div className="badge badge-outline">{release}</div>
-            <div className="badge badge-outline">{duration}</div>
-            <div className="badge badge-outline">{rating}</div>
-            <div className="badge badge-outline">{_id}</div>
+        <div className="md:ml-3 flex flex-col items-start justify-center">
+          <h2 className="card-title text-3xl">{name}</h2>
+          <p className="my-1">{summary}</p>
+          <div className=" flex md:flex-col gap-y-3 text-left">
+            <div className="">Genre: {genre}</div>
+            <div className="">Release: {release}</div>
+            <div className="">Duration: {duration} m</div>
+            <div className="">Rating: {rating}</div>
           </div>
           <div>
             <NavLink to={`/details/${_id}`}>

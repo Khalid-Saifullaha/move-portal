@@ -81,7 +81,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/details/:id",
-        element: <MoveDetails></MoveDetails>,
+        element: (
+          <PrivateRoute>
+            <MoveDetails></MoveDetails>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:4000/move/${params.id}`),
       },

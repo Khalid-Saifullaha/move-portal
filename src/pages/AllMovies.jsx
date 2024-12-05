@@ -18,13 +18,13 @@ const AllMovies = () => {
 
   return (
     <div>
-      <div className="w-[400px] mx-auto my-4">
+      <div className="md:w-[400px] mx-auto my-4 ">
         <input
           onChange={(e) => setSearch(e.target.value)}
           type="text"
           name="search"
           placeholder="search"
-          className="input input-bordered w-full"
+          className="input input-bordered w-full border-slate-600"
           required
         />
       </div>
