@@ -19,12 +19,36 @@ const Navbar = () => {
       <li>
         <NavLink to={`/favorites`}>My Favorites</NavLink>
       </li>
+
+      {user && (
+        <>
+          <li>
+            <NavLink to={`/profile`}>My Profile</NavLink>
+          </li>
+        </>
+      )}
+
+      {user && (
+        <li>
+          <NavLink to={`user`}>
+            <div className="tooltip" data-tip={user?.displayName}>
+              <div>
+                <img
+                  className="w-10 h-10 rounded-full "
+                  src={user?.photo}
+                  alt=""
+                />
+              </div>
+            </div>
+          </NavLink>
+        </li>
+      )}
     </>
   );
 
   return (
     <div>
-      <div className="navbar bg-black flex text-white  justify-between items-center  ">
+      <div className="navbar bg-blue-500 flex text-white  justify-between items-center  ">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

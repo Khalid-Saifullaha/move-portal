@@ -12,16 +12,15 @@ const Register = () => {
   const handleGoogleLogin = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         navigate("/");
       })
       .catch((error) => {
-        console.log("ERROR", error);
+        // console.log("ERROR", error);
       });
   };
 
   const { createNewUser, setUser } = useContext(AuthContext);
-
   const navigate = useNavigate();
   const [error, setError] = useState({});
   const handleSubmit = (e) => {
@@ -29,7 +28,7 @@ const Register = () => {
     // get form data
     const form = new FormData(e.target);
     const name = form.get("name");
-    if (name.length < 5) {
+    if (name.length < 3) {
       setError({ ...error, name: "must be more the 5 character long" });
       return;
     }
@@ -57,18 +56,24 @@ const Register = () => {
       });
       return;
     }
-    console.log({ name, email, password, photo });
+    // console.log({ name, email, password, photo });
 
     createNewUser(email, password)
       .then((result) => {
         const user = result.user;
         setUser(user);
-        console.log(user);
+        updateUserProfile({ displayName: name, photo: photo })
+          .then(() => {
+            navigate("/");
+          })
+          .catch((err) => {
+            // console.log(err);
+          });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        // console.log(errorCode, errorMessage);
       });
   };
 

@@ -1,7 +1,6 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 
-const MoveCard = ({ move }) => {
+const MoveCard2 = ({ move }) => {
   const { _id, photo, name, genre, duration, release, rating, summary } = move;
   return (
     <div className="">
@@ -17,14 +16,6 @@ const MoveCard = ({ move }) => {
             <div className="badge badge-outline">{release}</div>
             <div className="badge badge-outline">{duration}</div>
             <div className="badge badge-outline">{rating}</div>
-            <div className="badge badge-outline">{_id}</div>
-          </div>
-          <div>
-            <NavLink to={`/details/${_id}`}>
-              <button className="btn btn-primary text-white font-bold">
-                See Details
-              </button>
-            </NavLink>
           </div>
         </div>
       </div>
@@ -32,4 +23,4 @@ const MoveCard = ({ move }) => {
   );
 };
 
-export default MoveCard;
+export default MoveCard2;

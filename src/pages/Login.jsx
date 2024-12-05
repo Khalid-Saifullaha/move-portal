@@ -3,11 +3,36 @@ import { FaEye, FaRegEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  sendPasswordResetEmail,
+  signInWithPopup,
+} from "firebase/auth";
+import app from "../firebase/firebase.init";
 
 const Login = () => {
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  const handleGoogleLogin = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // console.log(result);
+        navigate("/");
+      })
+      .catch((error) => {
+        // console.log("ERROR", error);
+      });
+  };
+
+  const [showPassword, setShowPassword] = useState(false);
+  const emailRef = useRef();
   const { userLogin, setUser } = useContext(AuthContext);
+  const [error, setError] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -26,9 +51,21 @@ const Login = () => {
       });
   };
 
-  const [showPassword, setShowPassword] = useState(false);
-  const emailRef = useRef();
-  const [error, setError] = useState({});
+  const handleForgetPassword = () => {
+    const email = emailRef.current.value;
+    if (!email) {
+      alert("Please provide a valid email address");
+      return;
+    }
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        alert("Password reset email sent! Please check your email.");
+      })
+      .catch((error) => {
+        // console.error("Error sending password reset email:", error.message);
+        alert("Failed to send password reset email. Please try again.");
+      });
+  };
 
   return (
     <div className="flex justify-center">
@@ -73,7 +110,7 @@ const Login = () => {
                 {error.login}
               </label>
             )}
-            <label className="label">
+            <label onClick={handleForgetPassword} className="label">
               <span className="label-text-alt link link-hover">
                 Forgot password?
               </span>
@@ -91,7 +128,10 @@ const Login = () => {
             Register
           </Link>
         </p>
-        <button className="btn btn-primary text-white rounded-3xl mt-5 flex items-center justify-center">
+        <button
+          onClick={handleGoogleLogin}
+          className="btn btn-primary text-white rounded-3xl mt-5 flex items-center justify-center"
+        >
           <FcGoogle className="text-2xl mr-2" /> Login with Google
         </button>
       </div>

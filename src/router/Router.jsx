@@ -14,6 +14,9 @@ import UpdateMovee from "../pages/UpdateMovee";
 import Register from "../pages/Register";
 import PrivateRoute from "./PrivateRoute";
 
+import MyProfile from "../pages/MyProfile";
+import UserProfile from "../pages/UserProfile";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,11 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/allMovies",
-        element: (
-          <PrivateRoute>
-            <AllMovies></AllMovies>
-          </PrivateRoute>
-        ),
+        element: <AllMovies></AllMovies>,
         loader: () => fetch("http://localhost:4000/move"),
       },
       {
@@ -46,6 +45,22 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyFavorites></MyFavorites>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/user",
+        element: (
+          <PrivateRoute>
+            <UserProfile></UserProfile>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <MyProfile></MyProfile>
           </PrivateRoute>
         ),
       },
