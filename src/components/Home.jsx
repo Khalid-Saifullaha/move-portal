@@ -3,6 +3,7 @@ import Banner from "./Banner";
 import MoveCard from "./MoveCard";
 import { useLoaderData, NavLink } from "react-router-dom";
 import ComingSoon from "../pages/ComingSoon";
+import WebSeries from "../pages/WebSeries";
 
 const Home = () => {
   const data = useLoaderData();
@@ -35,6 +36,9 @@ const Home = () => {
             See All Movies
           </button>
         </NavLink>
+      </div>
+      <div>
+        <WebSeries></WebSeries>
       </div>
       <ComingSoon></ComingSoon>
     </div>
