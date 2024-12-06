@@ -5,7 +5,7 @@ const MoveCard = ({ move }) => {
   const { _id, photo, name, genre, duration, release, rating, summary } = move;
   return (
     <div className="">
-      <div className="card bg-base-100 w-96 shadow-xl ">
+      <div className="card bg-base-100 w-96 mx-auto shadow-xl dark:bg-gray-900 dark:text-white">
         <figure>
           <img src={photo} alt="Shoes" />
         </figure>
@@ -20,7 +20,7 @@ const MoveCard = ({ move }) => {
           </div>
           <div>
             <NavLink to={`/details/${_id}`}>
-              <button className="btn btn-primary text-white font-bold">
+              <button className="btn btn-primary text-white font-bold my-3">
                 See Details
               </button>
             </NavLink>

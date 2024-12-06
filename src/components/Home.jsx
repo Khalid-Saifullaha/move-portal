@@ -8,7 +8,7 @@ import WebSeries from "../pages/WebSeries";
 const Home = () => {
   const data = useLoaderData();
 
-  // Sort movies by rating in descending order and take the first 6
+  // Sort movies by rating
   const [moveData] = useState(
     [...data].sort((a, b) => b.rating - a.rating).slice(0, 6)
   );
@@ -20,8 +20,8 @@ const Home = () => {
         <Banner />
       </div>
 
-      <div className="bg-gray-100 dark:bg-gray-900 py-5 text-gray-100 mb-5">
-        <h1 className="text-2xl font-bold">Featured Movies</h1>
+      <div className="  py-5 text-sky-600 mb-5">
+        <h1 className="text-xl font-bold text-center">Featured Movies</h1>
       </div>
 
       {/* Movie Cards Section */}

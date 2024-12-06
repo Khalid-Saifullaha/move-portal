@@ -6,8 +6,10 @@ const WebSeries = () => {
   return (
     <div>
       <div className="my-8">
-        <p className="text-2xl">Best TV Series</p>
-        <h2 className="text-5xl text-sky-700">World Best TV Series</h2>
+        <p className="text-2xl text-center">Best TV Series</p>
+        <h2 className="text-5xl text-sky-700 text-center">
+          World Best TV Series
+        </h2>
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3">
         <div>

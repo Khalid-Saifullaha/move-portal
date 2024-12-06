@@ -1,8 +1,11 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
+import { FaMoon, FaSun } from "react-icons/fa";
+import { ThemeCotext } from "../context/ThemeContextProvider";
 
 const Navbar = () => {
+  const { theme, toggleTheme } = useContext(ThemeCotext);
   const { user, logOut } = useContext(AuthContext);
 
   const navbarLinks = (
@@ -42,7 +45,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="navbar bg-blue-500 flex text-white  justify-between items-center  ">
+      <div className="navbar bg-blue-700 flex text-white  justify-between items-center md:px-20  dark:bg-gray-900 dark:text-white">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -63,7 +66,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content  bg-black rounded-box z-[1] mt-3 w-52 py-2 shadow gap-4"
+              className="menu menu-sm dropdown-content  bg-black rounded-box z-[1] mt-3 w-52 py-2 shadow gap-4 " //dark:bg-gray-900 dark:text-white
             >
               {navbarLinks}
             </ul>
@@ -74,6 +77,11 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1 text-base gap-2">
             {navbarLinks}
           </ul>
+        </div>
+        <div>
+          <button className="text-2xl text-black" onClick={toggleTheme}>
+            {theme === "light" ? <FaMoon /> : <FaSun />}
+          </button>
         </div>
         <div>
           {user && user?.email ? (

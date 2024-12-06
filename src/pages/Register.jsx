@@ -60,12 +60,11 @@ const Register = () => {
 
     createNewUser(email, password)
       .then((result) => {
+        navigate("/");
         const user = result.user;
         setUser(user);
         updateUserProfile({ displayName: name, photo: photo })
-          .then(() => {
-            navigate("/");
-          })
+          .then(() => {})
           .catch((err) => {
             // console.log(err);
           });

@@ -8,10 +8,12 @@ import Superman from "../assets/download (1).jpg";
 import Avengers from "../assets/download (4).jpg";
 const ComingSoon = () => {
   return (
-    <div className="my-10">
-      <h2 className="text-5xl font-bold mb-5">Coming Soon</h2>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-y-3">
-        <div className="w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+    <div className="my-10 ">
+      <h2 className="text-5xl font-bold my-10 text-center text-sky-700">
+        Coming Soon
+      </h2>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3  gap-y-3">
+        <div className="w-full mx-auto max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
           <img
             className="object-cover w-full h-56"
             src={CaptainAmerica}
@@ -29,7 +31,7 @@ const ComingSoon = () => {
             </a>
           </div>
         </div>
-        <div className="w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+        <div className="w-full mx-auto max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
           <img
             className="object-cover w-full h-56"
             src={KraventheHunter}
@@ -47,7 +49,7 @@ const ComingSoon = () => {
             </a>
           </div>
         </div>
-        <div className="w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+        <div className="w-full mx-auto max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
           <img className="object-cover w-full h-56" src={TheBatman} alt="" />
 
           <div className="py-5 text-center">
@@ -61,7 +63,7 @@ const ComingSoon = () => {
             </a>
           </div>
         </div>
-        <div className="w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+        <div className="w-full mx-auto max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
           <img className="object-cover w-full h-56" src={Superman} alt="" />
 
           <div className="py-5 text-center">
@@ -75,7 +77,7 @@ const ComingSoon = () => {
             </a>
           </div>
         </div>
-        <div className="w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+        <div className="w-full mx-auto max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
           <img
             className="object-cover w-full h-56"
             src={CaptainAmerica}
@@ -93,7 +95,7 @@ const ComingSoon = () => {
             </a>
           </div>
         </div>
-        <div className="w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+        <div className="w-full mx-auto max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
           <img className="object-cover w-full h-56" src={Avengers} alt="" />
 
           <div className="py-5 text-center">

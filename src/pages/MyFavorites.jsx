@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const MyFavorites = () => {
   const [favorites, setFavorites] = useState([]);
@@ -8,6 +9,42 @@ const MyFavorites = () => {
       .then((res) => res.json())
       .then((data) => setFavorites(data));
   }, []);
+
+  const handleDelete = (_id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:4000/favorites/${_id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              Swal.fire(
+                "Deleted!",
+                "Your favorite movie has been deleted.",
+                "success"
+              );
+              const remaining = favorites.filter((fav) => fav._id !== _id);
+              setFavorites(remaining);
+            } else {
+              Swal.fire("Error!", "Failed to delete the movie.", "error");
+            }
+          })
+          .catch((error) => {
+            console.error("Error deleting the movie:", error);
+            Swal.fire("Error!", "An unexpected error occurred.", "error");
+          });
+      }
+    });
+  };
 
   return (
     <div className="p-4">
@@ -21,17 +58,23 @@ const MyFavorites = () => {
           {favorites.map((movie) => (
             <div
               key={movie._id}
-              className="card bg-gray-800 text-white shadow-lg p-4"
+              className="card bg-sky-800 text-white shadow-lg p-4"
             >
               <img
                 src={movie.photo}
                 alt={movie.name}
-                className="w-full h-48 object-cover rounded-lg mb-3"
+                className="w-full h-[33rem] object-cover rounded-lg mb-3"
               />
               <h2 className="text-xl font-bold">{movie.name}</h2>
               <p className="text-sm">{movie.genre}</p>
               <p className="text-sm">Duration: {movie.duration} mins</p>
               <p className="text-sm">Rating: {movie.rating}</p>
+              <button
+                onClick={() => handleDelete(movie._id)}
+                className="btn btn-warning"
+              >
+                Delete Favorite
+              </button>
             </div>
           ))}
         </div>
