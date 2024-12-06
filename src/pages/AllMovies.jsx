@@ -9,7 +9,9 @@ const AllMovies = () => {
   const [moveData, setMoveData] = useState(data);
 
   useEffect(() => {
-    fetch(`http://localhost:4000/move?searchParams=${search}`)
+    fetch(
+      `https://assignment-10-server-ebon-zeta.vercel.app/move?searchParams=${search}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setMoveData(data);

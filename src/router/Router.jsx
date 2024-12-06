@@ -26,12 +26,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch("http://localhost:4000/move"),
+        loader: () =>
+          fetch("https://assignment-10-server-ebon-zeta.vercel.app/move"),
       },
       {
         path: "/allMovies",
         element: <AllMovies></AllMovies>,
-        loader: () => fetch("http://localhost:4000/move"),
+        loader: () =>
+          fetch("https://assignment-10-server-ebon-zeta.vercel.app/move"),
       },
       {
         path: "/addMovie",
@@ -78,13 +80,17 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:4000/move/${params.id}`),
+          fetch(
+            `https://assignment-10-server-ebon-zeta.vercel.app/move/${params.id}`
+          ),
       },
       {
         path: "/update/:id",
         element: <UpdateMovee></UpdateMovee>,
         loader: ({ params }) =>
-          fetch(`http://localhost:4000/move/${params.id}`),
+          fetch(
+            `https://assignment-10-server-ebon-zeta.vercel.app/move/${params.id}`
+          ),
       },
     ],
   },

@@ -5,7 +5,7 @@ const MyFavorites = () => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4000/favorites")
+    fetch("https://assignment-10-server-ebon-zeta.vercel.app/favorites")
       .then((res) => res.json())
       .then((data) => setFavorites(data));
   }, []);
@@ -21,9 +21,12 @@ const MyFavorites = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:4000/favorites/${_id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://assignment-10-server-ebon-zeta.vercel.app/favorites/${_id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {

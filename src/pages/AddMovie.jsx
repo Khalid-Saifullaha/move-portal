@@ -69,10 +69,10 @@ const AddMovie = () => {
       email: userEmail,
     };
 
-    console.log(newMovie);
+    // console.log(newMovie);
 
     // Send data to the server and database
-    fetch("http://localhost:4000/move", {
+    fetch("https://assignment-10-server-ebon-zeta.vercel.app/move", {
       method: "POST",
       headers: {
         "content-type": "application/json",

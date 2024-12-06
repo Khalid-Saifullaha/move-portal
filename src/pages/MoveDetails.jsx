@@ -8,7 +8,7 @@ const MoveDetails = () => {
   const [moves, setMoves] = useState(move);
 
   const handleAddToFavorites = (movie) => {
-    fetch("http://localhost:4000/favorites", {
+    fetch("https://assignment-10-server-ebon-zeta.vercel.app/favorites", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +28,7 @@ const MoveDetails = () => {
   };
 
   const handleDelete = (_id) => {
-    console.log(_id);
+    // console.log(_id);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -39,12 +39,12 @@ const MoveDetails = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:4000/move/${_id}`, {
+        fetch(`https://assignment-10-server-ebon-zeta.vercel.app/move/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
+            // console.log(data);
             if (data.deletedCount > 0) {
               Swal.fire({
                 title: "Deleted!",

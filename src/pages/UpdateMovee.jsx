@@ -16,7 +16,7 @@ const UpdateMovee = () => {
     const release = e.target.release.value;
     const summary = e.target.summary.value;
     const userEmail = "user@example.com"; // Replace with dynamically fetched email
-    console.log();
+    // console.log();
     // Validations
     if (!/^https?:\/\/.+\..+/.test(photo)) {
       Swal.fire("Error", "Photo URL must be a valid link", "error");
@@ -62,10 +62,10 @@ const UpdateMovee = () => {
       email: userEmail,
     };
 
-    console.log(updatedMovie);
+    // console.log(updatedMovie);
 
     // Send data to the server and database
-    fetch(`http://localhost:4000/move/${_id}`, {
+    fetch(`https://assignment-10-server-ebon-zeta.vercel.app/move/${_id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
