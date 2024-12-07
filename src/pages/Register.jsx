@@ -20,7 +20,7 @@ const Register = () => {
       });
   };
 
-  const { createNewUser, setUser } = useContext(AuthContext);
+  const { createNewUser, setUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
   const [error, setError] = useState({});
   const handleSubmit = (e) => {
@@ -61,7 +61,10 @@ const Register = () => {
     createNewUser(email, password)
       .then((result) => {
         navigate("/");
-        console.log("user created at fb", result.user);
+        const user = result.user;
+        setUser(user);
+        updateUserProfile({ displayName: name, photoURL: photo });
+        // console.log("user created at fb", result.user);
 
         const newUser = { name, email };
         // save new user info to the database
@@ -75,20 +78,17 @@ const Register = () => {
           .then((res) => res.json())
           .then((data) => {
             if (data.insertedId) {
-              console.log("user created in db");
+              // console.log("user created in db");
             }
           });
       })
       .catch((error) => {
-        console.log("error", error);
+        // console.log("error", error);
       });
   };
 
   return (
     <div className=" flex justify-center my-10">
-      {/* <Helmet>
-        <title>Register</title>
-      </Helmet> */}
       <div className="card  w-full max-w-lg shrink-0 rounded-none p-10">
         <h2 className="text-2xl font-semibold text-center">
           Register your account

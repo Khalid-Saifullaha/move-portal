@@ -18,7 +18,7 @@ const MyProfile = () => {
       try {
         updateProfile(user, {
           displayName: name,
-          photo: newImage ? URL.createObjectURL(newImage) : user.photo, // New image URL if updated
+          photo: newImage ? URL.createObjectURL(newImage) : user.photo,
         });
         setUser({
           ...user,
