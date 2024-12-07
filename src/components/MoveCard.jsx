@@ -5,7 +5,7 @@ const MoveCard = ({ move }) => {
   const { _id, photo, name, genre, duration, release, rating, summary } = move;
   return (
     <div className="">
-      <div className="card bg-base-100 w-96 mx-auto shadow-xl dark:bg-gray-900 dark:text-white">
+      <div className="card bg-base-100 w-96 h-[900px] mx-auto shadow-xl dark:bg-gray-900 dark:text-white">
         <figure>
           <img src={photo} alt="Shoes" />
         </figure>

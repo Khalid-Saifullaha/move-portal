@@ -10,6 +10,8 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import app from "../firebase/firebase.init";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const auth = getAuth(app);
@@ -20,9 +22,11 @@ const Login = () => {
       .then((result) => {
         // console.log(result);
         navigate("/");
+        toast.success("Logged in successfully!");
       })
       .catch((error) => {
         // console.log("ERROR", error);
+        toast.error("Google login failed. Please try again.");
       });
   };
 
@@ -45,21 +49,23 @@ const Login = () => {
         const user = result.user;
         setUser(user);
         navigate(location?.state?.from || "/");
+        toast.success("Logged in successfully!");
       })
       .catch((err) => {
         setError({ ...error, login: err.code });
+        toast.error("Login failed. Please check your credentials.");
       });
   };
 
   const handleForgetPassword = () => {
     const email = emailRef.current.value;
     if (!email) {
-      alert("Please provide a valid email address");
+      toast.error("Please provide a valid email address.");
       return;
     }
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        alert("Password reset email sent! Please check your email.");
+        toast.error("Failed to send password reset email. Please try again.");
       })
       .catch((error) => {
         // console.error("Error sending password reset email:", error.message);
@@ -69,6 +75,7 @@ const Login = () => {
 
   return (
     <div className="flex justify-center">
+      <ToastContainer position="top-right" autoClose={3000} />
       <div className="card bg-base-100 w-full max-w-lg shrink-0 rounded-none p-10">
         <h2 className="text-2xl font-semibold text-center">
           Login to your account
