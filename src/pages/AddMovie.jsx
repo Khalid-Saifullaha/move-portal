@@ -6,7 +6,8 @@ import { AuthContext } from "../Provider/AuthProvider";
 
 const AddMovie = () => {
   const [rating, setRating] = useState(0);
-  const user = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  console.log(user.email);
 
   const handleRating = (rate) => {
     setRating(rate);
@@ -21,8 +22,7 @@ const AddMovie = () => {
     const duration = parseInt(e.target.duration.value, 10);
     const release = e.target.release.value;
     const summary = e.target.summary.value;
-    const userEmail = "user@example.com";
-    l;
+    const email = user?.email;
 
     // Validations
     if (!/^https?:\/\/.+\..+/.test(photo)) {
@@ -70,7 +70,7 @@ const AddMovie = () => {
       release,
       rating,
       summary,
-      email: userEmail,
+      email,
     };
 
     // console.log(newMovie);

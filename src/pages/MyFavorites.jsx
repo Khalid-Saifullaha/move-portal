@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useContext } from "react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const MyFavorites = () => {
   const [favorites, setFavorites] = useState([]);
+  const { user } = useContext(AuthContext);
+  const email = user.email;
 
   useEffect(() => {
     fetch("https://assignment-10-server-ebon-zeta.vercel.app/favorites")
@@ -35,14 +39,16 @@ const MyFavorites = () => {
                 "Your favorite movie has been deleted.",
                 "success"
               );
-              const remaining = favorites.filter((fav) => fav._id !== _id);
-              setFavorites(remaining);
+              const remainingFavorite = favorites.filter(
+                (favorite) => favorite._id !== id
+              );
+              setFavorites(remainingFavorite);
             } else {
               Swal.fire("Error!", "Failed to delete the movie.", "error");
             }
           })
           .catch((error) => {
-            console.error("Error deleting the movie:", error);
+            // console.error("Error deleting the movie:", error);
             Swal.fire("Error!", "An unexpected error occurred.", "error");
           });
       }

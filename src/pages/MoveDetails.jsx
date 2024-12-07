@@ -10,7 +10,7 @@ const MoveDetails = () => {
   const { user } = useContext(AuthContext);
 
   const handleAddToFavorites = (movie) => {
-    if (!user?.email) return;
+    // if (user?.email) return;
     fetch("https://assignment-10-server-ebon-zeta.vercel.app/favorites", {
       method: "POST",
       headers: {
