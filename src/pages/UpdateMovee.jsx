@@ -1,100 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { Rating } from "react-simple-star-rating";
 
 const UpdateMovee = () => {
   const move = useLoaderData();
   const { _id, photo, name, genre, duration, release, rating, summary } = move;
 
-  const handleUpdateMovie = (e) => {
-    e.preventDefault();
+  const [currentRating, setCurrentRating] = useState(rating);
 
-    const photo = e.target.photo.value;
-    const name = e.target.name.value;
-    const genre = e.target.genre.value;
-    const duration = parseInt(e.target.duration.value, 10);
-    const release = e.target.release.value;
-    const summary = e.target.summary.value;
-    const userEmail = "user@example.com"; // Replace with dynamically fetched email
-    // console.log();
-    // Validations
-    if (!/^https?:\/\/.+\..+/.test(photo)) {
-      Swal.fire("Error", "Photo URL must be a valid link", "error");
-      return;
-    }
-    if (name.trim().length < 2) {
-      Swal.fire(
-        "Error",
-        "Movie title must have at least 2 characters",
-        "error"
-      );
-      return;
-    }
-    if (!genre) {
-      Swal.fire("Error", "Please select a genre", "error");
-      return;
-    }
-    if (isNaN(duration) || duration <= 60) {
-      Swal.fire("Error", "Duration must be greater than 60 minutes", "error");
-      return;
-    }
-    if (!release) {
-      Swal.fire("Error", "Please select a release year", "error");
-      return;
-    }
-
-    if (summary.trim().length < 10) {
-      Swal.fire(
-        "Error",
-        "Summary must be at least 10 characters long",
-        "error"
-      );
-      return;
-    }
-    const updatedMovie = {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
       photo,
       name,
       genre,
       duration,
       release,
-      rating,
       summary,
-      email: userEmail,
+    },
+  });
+
+  const handleRating = (rate) => {
+    setCurrentRating(rate);
+    setValue("rating", rate);
+  };
+
+  const onSubmit = (data) => {
+    if (currentRating === 0) {
+      Swal.fire("Error", "Please select a rating", "error");
+      return;
+    }
+
+    const updatedMovie = {
+      ...data,
+      duration: parseInt(data.duration, 10),
+      rating: currentRating,
     };
 
-    // console.log(updatedMovie);
-
-    // Send data to the server and database
     fetch(`https://assignment-10-server-ebon-zeta.vercel.app/move/${_id}`, {
       method: "PUT",
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(updatedMovie),
     })
       .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          Swal.fire({
-            title: "Success!",
-            text: "Movie Update successfully",
-            icon: "success",
-            confirmButtonText: "Ok",
-          });
-          e.target.reset();
+      .then((result) => {
+        if (result.modifiedCount > 0) {
+          Swal.fire("Success!", "Movie updated successfully", "success");
+        } else {
+          Swal.fire("Error", "No changes were made", "error");
         }
-      });
+      })
+      .catch(() =>
+        Swal.fire("Error", "An unexpected error occurred.", "error")
+      );
   };
+
   return (
     <div className="lg:w-3/4 mx-auto">
       <div className="text-center p-10">
         <h1 className="text-5xl font-bold">Update Movie!</h1>
         <p className="py-6">
-          Provide details of your favorite movies to add them to the collection.
+          Update the details of your favorite movies in the collection.
         </p>
       </div>
       <div className="card bg-base-100 w-full shrink-0 shadow-2xl">
-        <form onSubmit={handleUpdateMovie} className="card-body">
+        <form onSubmit={handleSubmit(onSubmit)} className="card-body">
           {/* Form first row */}
           <div className="flex flex-col gap-5">
             <div className="form-control">
@@ -103,12 +81,19 @@ const UpdateMovee = () => {
               </label>
               <input
                 type="text"
-                name="photo"
-                defaultValue={photo}
                 placeholder="Photo URL"
                 className="input input-bordered"
-                required
+                {...register("photo", {
+                  required: "Photo URL is required",
+                  pattern: {
+                    value: /^https?:\/\/.+\..+/,
+                    message: "Photo URL must be a valid link",
+                  },
+                })}
               />
+              {errors.photo && (
+                <span className="text-red-500">{errors.photo.message}</span>
+              )}
             </div>
             <div className="form-control flex-1">
               <label className="label">
@@ -116,23 +101,27 @@ const UpdateMovee = () => {
               </label>
               <input
                 type="text"
-                name="name"
-                defaultValue={name}
                 placeholder="Movie Title"
                 className="input input-bordered"
-                required
+                {...register("name", {
+                  required: "Movie title is required",
+                  minLength: {
+                    value: 2,
+                    message: "Movie title must have at least 2 characters",
+                  },
+                })}
               />
+              {errors.name && (
+                <span className="text-red-500">{errors.name.message}</span>
+              )}
             </div>
             <div className="form-control flex-1">
               <label className="label">
                 <span className="label-text">Genre</span>
               </label>
-
               <select
-                name="genre"
-                defaultValue={genre}
                 className="select select-bordered"
-                required
+                {...register("genre", { required: "Genre is required" })}
               >
                 <option value="">Select Genre</option>
                 <option value="comedy">Comedy</option>
@@ -141,6 +130,9 @@ const UpdateMovee = () => {
                 <option value="action">Action</option>
                 <option value="romance">Romance</option>
               </select>
+              {errors.genre && (
+                <span className="text-red-500">{errors.genre.message}</span>
+              )}
             </div>
           </div>
           {/* Form second row */}
@@ -151,23 +143,29 @@ const UpdateMovee = () => {
               </label>
               <input
                 type="number"
-                name="duration"
-                defaultValue={duration}
                 placeholder="Duration"
                 className="input input-bordered"
-                min="61"
-                required
+                {...register("duration", {
+                  required: "Duration is required",
+                  min: {
+                    value: 61,
+                    message: "Duration must be greater than 60 minutes",
+                  },
+                })}
               />
+              {errors.duration && (
+                <span className="text-red-500">{errors.duration.message}</span>
+              )}
             </div>
             <div className="form-control flex-1">
               <label className="label">
                 <span className="label-text">Release Year</span>
               </label>
               <select
-                name="release"
-                defaultValue={release}
                 className="select select-bordered"
-                required
+                {...register("release", {
+                  required: "Release year is required",
+                })}
               >
                 <option value="">Select Year</option>
                 <option value="2024">2024</option>
@@ -175,6 +173,9 @@ const UpdateMovee = () => {
                 <option value="2022">2022</option>
                 <option value="2021">2021</option>
               </select>
+              {errors.release && (
+                <span className="text-red-500">{errors.release.message}</span>
+              )}
             </div>
           </div>
           {/* Form third row */}
@@ -183,23 +184,35 @@ const UpdateMovee = () => {
               <label className="label">
                 <span className="label-text">Rating</span>
               </label>
+              <Rating
+                onClick={handleRating}
+                ratingValue={currentRating}
+                size={30}
+                allowHalfIcon
+              />
             </div>
             <div className="form-control flex-1">
               <label className="label">
                 <span className="label-text">Summary</span>
               </label>
               <textarea
-                name="summary"
-                defaultValue={summary}
                 placeholder="Summary"
                 className="textarea textarea-bordered"
-                required
+                {...register("summary", {
+                  required: "Summary is required",
+                  minLength: {
+                    value: 10,
+                    message: "Summary must be at least 10 characters long",
+                  },
+                })}
               ></textarea>
+              {errors.summary && (
+                <span className="text-red-500">{errors.summary.message}</span>
+              )}
             </div>
           </div>
-
           <div className="form-control mt-6">
-            <button className="btn btn-primary">Updated Movie</button>
+            <button className="btn btn-primary">Update Movie</button>
           </div>
         </form>
       </div>
