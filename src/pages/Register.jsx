@@ -1,162 +1,158 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import app from "../firebase/firebase.init";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const { createNewUser, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleGoogleLogin = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        // console.log(result);
         navigate("/");
       })
-      .catch((error) => {
-        // console.log("ERROR", error);
-      });
+      .catch(() => {});
   };
 
-  const { createNewUser, setUser } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const [error, setError] = useState({});
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // get form data
-    const form = new FormData(e.target);
-    const name = form.get("name");
-    if (name.length < 3) {
-      setError({ ...error, name: "must be more the 5 character long" });
-      return;
-    }
-    const photo = form.get("photo");
-    const email = form.get("email");
-    const password = form.get("password");
-    if (password.length < 6) {
-      setError({
-        ...error,
-        name: "Password must be at least 6 characters long.",
-      });
-      return;
-    }
-    if (!/[A-Z]/.test(password)) {
-      setError({
-        ...error,
-        password: "Password must contain at least one uppercase letter.",
-      });
-      return;
-    }
-    if (!/[a-z]/.test(password)) {
-      setError({
-        ...error,
-        password: "Password must contain at least one lowercase letter.",
-      });
-      return;
-    }
-    // console.log({ name, email, password, photo });
+  const onSubmit = (data) => {
+    const { name, photo, email, password } = data;
 
     createNewUser(email, password)
       .then((result) => {
-        navigate("/");
         const user = result.user;
         setUser(user);
-        updateUserProfile({ displayName: name, photo: photo })
-          .then(() => {})
-          .catch((err) => {
-            // console.log(err);
-          });
+        navigate("/");
+
+        // Update user profile
+        user
+          .updateProfile({
+            displayName: name,
+            photoURL: photo,
+          })
+          .catch(() => {});
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // console.log(errorCode, errorMessage);
-      });
+      .catch(() => {});
   };
 
   return (
-    <div className=" flex justify-center my-10">
-      {/* <Helmet>
-        <title>Register</title>
-      </Helmet> */}
-      <div className="card  w-full max-w-lg shrink-0 rounded-none p-10">
+    <div className="flex justify-center my-10">
+      <div className="card w-full max-w-lg shrink-0 rounded-none p-10">
         <h2 className="text-2xl font-semibold text-center">
           Register your account
         </h2>
-        <form onSubmit={handleSubmit} className="card-body">
-          {/* name input */}
+        <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+          {/* Name Input */}
           <div className="form-control">
             <label className="label">
               <span className="label-text">Your Name</span>
             </label>
             <input
-              name="name"
+              {...register("name", {
+                required: "Name is required",
+                minLength: {
+                  value: 3,
+                  message: "Name must be at least 3 characters long",
+                },
+              })}
               type="text"
               placeholder="Enter your name"
               className="input input-bordered"
-              required
             />
-            {error.name && (
-              <label className="label text-sm text-red-600">{error.name}</label>
+            {errors.name && (
+              <label className="label text-sm text-red-600">
+                {errors.name.message}
+              </label>
             )}
           </div>
-          {/* Photo  */}
+          {/* Photo URL */}
           <div className="form-control">
             <label className="label">
               <span className="label-text">Photo URL</span>
             </label>
             <input
-              name="photo"
+              {...register("photo", { required: "Photo URL is required" })}
               type="text"
-              placeholder="Photo-URL"
+              placeholder="Photo URL"
               className="input input-bordered"
-              required
             />
+            {errors.photo && (
+              <label className="label text-sm text-red-600">
+                {errors.photo.message}
+              </label>
+            )}
           </div>
-          {/* email input */}
+          {/* Email Input */}
           <div className="form-control">
             <label className="label">
               <span className="label-text">Email</span>
             </label>
             <input
-              name="email"
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                  message: "Invalid email format",
+                },
+              })}
               type="email"
-              placeholder="email"
+              placeholder="Enter your email"
               className="input input-bordered"
-              required
             />
+            {errors.email && (
+              <label className="label text-sm text-red-600">
+                {errors.email.message}
+              </label>
+            )}
           </div>
-          {/* password input */}
+          {/* Password Input */}
           <div className="form-control">
             <label className="label">
               <span className="label-text">Password</span>
             </label>
             <input
-              name="password"
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters long",
+                },
+                pattern: {
+                  value: /^(?=.*[a-z])(?=.*[A-Z]).*$/,
+                  message:
+                    "Password must contain at least one uppercase and one lowercase letter",
+                },
+              })}
               type="password"
-              placeholder="password"
+              placeholder="Enter your password"
               className="input input-bordered"
-              required
             />
-            {error.password && (
+            {errors.password && (
               <label className="label text-sm text-red-600">
-                {error.password}
+                {errors.password.message}
               </label>
             )}
-            <label className="label">
-              <a href="#" className="label-text-alt link link-hover">
-                Forgot password?
-              </a>
-            </label>
           </div>
+          {/* Submit Button */}
           <div className="form-control mt-6">
-            <button className="btn btn-neutral rounded-none">Register</button>
+            <button className="btn btn-neutral rounded-none" type="submit">
+              Register
+            </button>
           </div>
         </form>
         <p className="text-center font-semibold">
-          Already have An Account ?{" "}
+          Already have an account?{" "}
           <Link to="/login" className="text-red-500">
             Login
           </Link>
