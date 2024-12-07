@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const MoveDetails = () => {
   const move = useLoaderData();
   const { _id, photo, name, genre, duration, release, rating, summary } = move;
   const [moves, setMoves] = useState(move);
+  const { user } = useContext(AuthContext);
 
   const handleAddToFavorites = (movie) => {
+    if (!user?.email) return;
     fetch("https://assignment-10-server-ebon-zeta.vercel.app/favorites", {
       method: "POST",
       headers: {

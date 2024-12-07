@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { Rating } from "react-simple-star-rating";
+import { useContext } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const AddMovie = () => {
   const [rating, setRating] = useState(0);
+  const user = useContext(AuthContext);
 
   const handleRating = (rate) => {
     setRating(rate);
@@ -18,7 +21,8 @@ const AddMovie = () => {
     const duration = parseInt(e.target.duration.value, 10);
     const release = e.target.release.value;
     const summary = e.target.summary.value;
-    const userEmail = "user@example.com"; // Replace with dynamically fetched email
+    const userEmail = "user@example.com";
+    l;
 
     // Validations
     if (!/^https?:\/\/.+\..+/.test(photo)) {
