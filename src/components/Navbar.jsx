@@ -45,7 +45,10 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="navbar bg-blue-700 flex text-white  justify-between items-center md:px-20  dark:bg-gray-900 dark:text-white">
+      <div
+        className="navbar bg-blue-950 flex text-white  justify-between 
+      items-center md:px-20  dark:bg-gray-900 dark:text-white"
+      >
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -80,7 +83,13 @@ const Navbar = () => {
         </div>
         <div>
           <button className="text-2xl text-black" onClick={toggleTheme}>
-            {theme === "light" ? <FaMoon /> : <FaSun />}
+            {theme === "light" ? (
+              <FaMoon />
+            ) : (
+              <span className="text-white">
+                <FaSun />
+              </span>
+            )}
           </button>
         </div>
         <div>
