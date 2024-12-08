@@ -1,8 +1,29 @@
-# React + Vite
+## MOVIE PORTAL
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Live link : https://assignment-10-54898.web.app/
 
-Currently, two official plugins are available:
+## About
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This is a Move Portel website . User will can see meves and Tv serise.
+
+## npm packages
+
+```bash
+  React Hook Form
+```
+
+```bash
+  React Icons
+```
+
+## Features
+
+- Open theis website and you see sort by hight rating 6 move in home page .
+- Click on See Details then you to Login page.If you login sussecfully then will see move details.
+- If you logedin website then you will see in navbar Add Move.If you cilic on Add move then you will add move.
+- Click on See Details then you will see details.
+- Click on Update Move You will can update move card .
+
+## Requirement doc
+
+https://docs.google.com/document/d/1dw9lqDFGzo40mEAx1A9Kp_hgVa9Ust2Tyg2hVTfBgps/edit?tab=t.0
