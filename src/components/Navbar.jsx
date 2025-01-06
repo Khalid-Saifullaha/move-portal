@@ -25,6 +25,9 @@ const Navbar = () => {
       <li>
         <NavLink to={`/comingSoon`}>Coming Soon</NavLink>
       </li>
+      <li>
+        <NavLink to={`/contactUs`}>Contact Us</NavLink>
+      </li>
       {user && (
         <li>
           <NavLink to={`user`}>

@@ -4,6 +4,7 @@ import MoveCard from "./MoveCard";
 import { useLoaderData, NavLink } from "react-router-dom";
 import ComingSoon from "../pages/ComingSoon";
 import WebSeries from "../pages/WebSeries";
+import ContactUs from "../pages/ContuctUs";
 
 const Home = () => {
   const data = useLoaderData();
@@ -43,6 +44,7 @@ const Home = () => {
         <WebSeries></WebSeries>
       </div>
       <ComingSoon></ComingSoon>
+      <ContactUs></ContactUs>
     </div>
   );
 };
