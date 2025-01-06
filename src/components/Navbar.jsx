@@ -50,7 +50,7 @@ const Navbar = () => {
     <div>
       <div
         className="navbar bg-blue-950 flex text-white  justify-between 
-      items-center md:px-20  dark:bg-gray-900 dark:text-white"
+      items-center md:px-[110px] lg:px-[250px]  dark:bg-gray-900 dark:text-white "
       >
         <div className="navbar-start">
           <div className="dropdown">

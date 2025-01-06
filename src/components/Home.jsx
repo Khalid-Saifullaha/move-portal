@@ -11,7 +11,7 @@ const Home = () => {
 
   // Sort movies by rating
   const [moveData] = useState(
-    [...data].sort((a, b) => b.rating - a.rating).slice(0, 6)
+    [...data].sort((a, b) => b.rating - a.rating).slice(0, 8)
   );
 
   return (
@@ -26,7 +26,7 @@ const Home = () => {
       </div>
 
       {/* Movie Cards Section */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
         {moveData.map((move) => (
           <MoveCard key={move._id} move={move}></MoveCard>
         ))}
