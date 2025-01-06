@@ -35,7 +35,7 @@ const Home = () => {
       {/* See All Button */}
       <div className="text-center my-6">
         <NavLink to={`/allMovies`}>
-          <button className="btn bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md">
+          <button className="btn btn-primary hover:bg-blue-600 text-white px-6 py-2 rounded-md">
             See All Movies
           </button>
         </NavLink>
