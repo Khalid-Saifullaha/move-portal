@@ -49,7 +49,7 @@ const Navbar = () => {
   return (
     <div>
       <div
-        className="navbar bg-blue-950 flex text-white  justify-between 
+        className="navbar bg-blue-600 flex text-white  justify-between 
       items-center md:px-[110px] lg:px-[250px]  dark:bg-gray-900 dark:text-white "
       >
         <div className="navbar-start">
