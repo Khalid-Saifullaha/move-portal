@@ -16,11 +16,6 @@ const Home = () => {
 
   return (
     <div>
-      {/* Banner Section */}
-      <div>
-        <Banner />
-      </div>
-
       <div className="  py-5 text-sky-600 mb-5">
         <h1 className="text-xl font-bold text-center">Featured Movies</h1>
       </div>
