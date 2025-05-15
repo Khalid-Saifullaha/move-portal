@@ -1,7 +1,7 @@
 import React from "react";
 import { CgClapperBoard } from "react-icons/cg";
 
-const MovieBanner = () => {
+const Banner = () => {
   return (
     <div className="relative bg-gradient-to-br from-indigo-700 via-purple-700 to-pink-700 text-white py-24 px-4 sm:px-6 lg:px-8 rounded-b-xl shadow-2xl overflow-hidden">
       <div
@@ -32,4 +32,4 @@ const MovieBanner = () => {
   );
 };
 
-export default MovieBanner;
+export default Banner;

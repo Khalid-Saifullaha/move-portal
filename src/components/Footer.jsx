@@ -6,9 +6,9 @@ const Footer = () => {
       <aside>
         <p className="text-4xl font-extrabold">MOVE-P</p>
         <p>
-          MOVIE PORTAL
+          CineStream
           <br />
-          2024 © MOVIE PORTAL. ALL Rights Reserved.
+          2025 © CineStream. ALL Rights Reserved.
         </p>
       </aside>
       <nav>

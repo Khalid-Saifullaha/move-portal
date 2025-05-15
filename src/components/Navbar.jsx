@@ -11,35 +11,85 @@ const Navbar = () => {
   const navbarLinks = (
     <>
       <li>
-        <NavLink to={`/`}>Home</NavLink>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive
+              ? "text-amber-400 font-semibold underline underline-offset-4"
+              : "hover:text-amber-300 transition-colors duration-300"
+          }
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to={`/allMovies`}>All Movies</NavLink>
+        <NavLink
+          to="/allMovies"
+          className={({ isActive }) =>
+            isActive
+              ? "text-amber-400 font-semibold underline underline-offset-4"
+              : "hover:text-amber-300 transition-colors duration-300"
+          }
+        >
+          All Movies
+        </NavLink>
       </li>
       <li>
-        <NavLink to={`/addMovie`}>Add Movie</NavLink>
+        <NavLink
+          to="/addMovie"
+          className={({ isActive }) =>
+            isActive
+              ? "text-amber-400 font-semibold underline underline-offset-4"
+              : "hover:text-amber-300 transition-colors duration-300"
+          }
+        >
+          Add Movie
+        </NavLink>
       </li>
       <li>
-        <NavLink to={`/favorites`}>My Favorites</NavLink>
+        <NavLink
+          to="/favorites"
+          className={({ isActive }) =>
+            isActive
+              ? "text-amber-400 font-semibold underline underline-offset-4"
+              : "hover:text-amber-300 transition-colors duration-300"
+          }
+        >
+          My Favorites
+        </NavLink>
       </li>
       <li>
-        <NavLink to={`/comingSoon`}>Coming Soon</NavLink>
+        <NavLink
+          to="/comingSoon"
+          className={({ isActive }) =>
+            isActive
+              ? "text-amber-400 font-semibold underline underline-offset-4"
+              : "hover:text-amber-300 transition-colors duration-300"
+          }
+        >
+          Coming Soon
+        </NavLink>
       </li>
       <li>
-        <NavLink to={`/contactUs`}>Contact Us</NavLink>
+        <NavLink
+          to="/contactUs"
+          className={({ isActive }) =>
+            isActive
+              ? "text-amber-400 font-semibold underline underline-offset-4"
+              : "hover:text-amber-300 transition-colors duration-300"
+          }
+        >
+          Contact Us
+        </NavLink>
       </li>
       {user && (
         <li>
-          <NavLink to={`user`}>
-            <div className="tooltip" data-tip={user?.displayName}>
-              <div>
-                <img
-                  className="w-10 h-10 rounded-full "
-                  src={user?.photo}
-                  alt=""
-                />
-              </div>
-            </div>
+          <NavLink to="/user" className="tooltip" data-tip={user?.displayName}>
+            <img
+              className="w-10 h-10 rounded-full hover:ring-2 ring-amber-300 transition duration-300"
+              src={user?.photo}
+              alt="User"
+            />
           </NavLink>
         </li>
       )}
@@ -47,11 +97,8 @@ const Navbar = () => {
   );
 
   return (
-    <div>
-      <div
-        className="navbar bg-blue-600 flex text-white  justify-between 
-      items-center md:px-[110px] lg:px-[250px]  dark:bg-gray-900 dark:text-white "
-      >
+    <div className="bg-gradient-to-r from-indigo-900/70 via-purple-800/60 to-pink-700/70 dark:bg-gray-900 dark:text-white">
+      <div className="navbar max-w-[1440px] mx-auto px-4 md:px-10 lg:px-20 flex justify-between items-center text-white">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -77,7 +124,7 @@ const Navbar = () => {
               {navbarLinks}
             </ul>
           </div>
-          <h2 className=" text-xl font-extrabold">MOVIE PORTAL</h2>
+          <h2 className=" text-xl font-extrabold">CineStream</h2>
         </div>
         <div className="navbar-center hidden lg:flex ">
           <ul className="menu menu-horizontal px-1 text-base gap-2">

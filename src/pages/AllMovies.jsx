@@ -19,7 +19,7 @@ const AllMovies = () => {
   }, [search]);
 
   return (
-    <div>
+    <div className="w-9/12 mx-auto ">
       <div className="md:w-[400px] mx-auto my-4 ">
         <input
           onChange={(e) => setSearch(e.target.value)}

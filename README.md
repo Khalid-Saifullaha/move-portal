@@ -1,4 +1,4 @@
-## MOVIE PORTAL
+## CineStream
 
 ## Live link : https://assignment-10-54898.web.app/
 
