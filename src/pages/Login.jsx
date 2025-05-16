@@ -137,7 +137,7 @@ const Login = () => {
         </p>
         <button
           onClick={handleGoogleLogin}
-          className="btn btn-primary text-white rounded-3xl mt-5 flex items-center justify-center"
+          className="btn bg-gradient-to-r from-indigo-900/70 via-purple-800/60 to-pink-700/70 text-white rounded-3xl mt-5 flex items-center justify-center"
         >
           <FcGoogle className="text-2xl mr-2" /> Login with Google
         </button>

@@ -113,7 +113,9 @@ const MyProfile = () => {
           <div className="form-control mt-6">
             <NavLink to={"/update"}>
               <button
-                className={`btn btn-primary w-full ${loading ? "loading" : ""}`}
+                className={`btn bg-gradient-to-r from-indigo-900/70 via-purple-800/60 to-pink-700/70 w-full ${
+                  loading ? "loading" : ""
+                }`}
                 type="submit"
                 disabled={loading}
               >

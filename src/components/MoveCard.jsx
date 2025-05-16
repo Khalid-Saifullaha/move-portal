@@ -29,7 +29,7 @@ const MoveCard = ({ move }) => {
 
           <div className="mt-auto w-full text-center">
             <NavLink to={`/details/${_id}`}>
-              <button className="btn btn-primary text-white font-semibold py-2 px-3 rounded-lg transition-all duration-300 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary-400">
+              <button className="btn bg-gradient-to-r from-indigo-900/70 via-purple-800/60 to-pink-700/70 text-white font-semibold py-2 px-3 rounded-lg transition-all duration-300 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary-400">
                 See Details
               </button>
             </NavLink>

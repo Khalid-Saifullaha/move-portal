@@ -33,7 +33,7 @@ const Home = () => {
       {/* See All Button */}
       <div className="text-center my-6">
         <NavLink to={`/allMovies`}>
-          <button className="btn btn-primary hover:bg-blue-600 text-white px-6 py-2 rounded-md">
+          <button className="btn bg-gradient-to-r from-indigo-900/70 via-purple-800/60 to-pink-700/70 text-white px-6 py-2 rounded-md">
             See All Movies
           </button>
         </NavLink>

@@ -83,7 +83,7 @@ const MoveDetails = () => {
             <NavLink to={`/allMovies`}>
               <button
                 onClick={() => handleDelete(_id)}
-                className="btn  btn-primary text-white font-bold"
+                className="btn  bg-gradient-to-r from-indigo-900/70 via-purple-800/60 to-pink-700/70 text-white font-bold"
               >
                 Delete Movie
               </button>
@@ -91,18 +91,18 @@ const MoveDetails = () => {
 
             <button
               onClick={() => handleAddToFavorites(move)}
-              className="btn btn-primary text-white font-bold my-3 md:mx-3"
+              className="btn bg-gradient-to-r from-indigo-900/70 via-purple-800/60 to-pink-700/70 text-white font-bold my-3 md:mx-3"
             >
               Add to Favorite
             </button>
 
             <NavLink to={`/update/${_id}`}>
-              <button className="btn btn-primary text-white font-bold">
+              <button className="btn bg-gradient-to-r from-indigo-900/70 via-purple-800/60 to-pink-700/70 text-white font-bold">
                 Updated Move
               </button>
             </NavLink>
             <NavLink to={`/allMovies`}>
-              <button className="btn btn-primary text-white font-bold">
+              <button className="btn bg-gradient-to-r from-indigo-900/70 via-purple-800/60 to-pink-700/70 text-white font-bold">
                 See all movies
               </button>
             </NavLink>

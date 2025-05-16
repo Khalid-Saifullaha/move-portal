@@ -212,7 +212,9 @@ const UpdateMovee = () => {
             </div>
           </div>
           <div className="form-control mt-6">
-            <button className="btn btn-primary">Update Movie</button>
+            <button className="btn bg-gradient-to-r from-indigo-900/70 via-purple-800/60 to-pink-700/70">
+              Update Movie
+            </button>
           </div>
         </form>
       </div>
